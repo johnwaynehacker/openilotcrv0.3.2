@@ -225,6 +225,7 @@ class CarState(object):
   def __init__(self, CP, logcan):
     self.civic = False
     self.accord = False
+    self.crv = False
     if CP.carFingerprint == "HONDA CIVIC 2016 TOURING":
       self.civic = True
     elif CP.carFingerprint == "ACURA ILX 2016 ACURAWATCH PLUS":
@@ -338,7 +339,7 @@ class CarState(object):
       self.cruise_setting = cp.vl[0x1A6]['CRUISE_SETTING']
       self.cruise_buttons = cp.vl[0x1A6]['CRUISE_BUTTONS']
       self.main_on = cp.vl[0x1A6]['MAIN_ON']
-      self.gear_shifter_valid = self.gear_shifter in [1,4]  # TODO: 1/P allowed for debug
+      self.gear_shifter_valid = self.gear_shifter in [1,8]  # TODO: 1/P allowed for debug
       self.blinker_on = cp.vl[0x294]['LEFT_BLINKER'] or cp.vl[0x294]['RIGHT_BLINKER']
       self.left_blinker_on = cp.vl[0x294]['LEFT_BLINKER']
       self.right_blinker_on = cp.vl[0x294]['RIGHT_BLINKER']
