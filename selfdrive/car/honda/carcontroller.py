@@ -141,7 +141,7 @@ class CarController(object):
     GAS_MAX = 1004
     BRAKE_MAX = 1024/4
     if CS.crv:
-      STEER_MAX = 0x380  # CR-V only uses 12-bits and requires a lower value
+      STEER_MAX = 0x300  # CR-V only uses 12-bits and requires a lower value
     else:
       STEER_MAX = 0xF00
     GAS_OFFSET = 328
@@ -149,7 +149,6 @@ class CarController(object):
     # steer torque is converted back to CAN reference (positive when steering right)
     apply_gas = int(clip(final_gas*GAS_MAX, 0, GAS_MAX-1))
     apply_brake = int(clip(final_brake*BRAKE_MAX, 0, BRAKE_MAX-1))
-    # crvtodo: tweak steering to match precision of 0xE4 code.
     apply_steer = int(clip(-final_steer*STEER_MAX, -STEER_MAX, STEER_MAX))
 
     # no gas if you are hitting the brake or the user is
@@ -184,8 +183,7 @@ class CarController(object):
       print "STEER ERROR"
       self.controls_allowed = False
 
-    # crvtodo, fix brake error, might be issue with dbc.
-    if CS.brake_error and not CS.crv:
+    if CS.brake_error:
       print "BRAKE ERROR"
       self.controls_allowed = False
 
